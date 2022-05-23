@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mpg-mongo
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: mpg-mongo
+  template:
+    metadata:
+      labels:
+        app: mpg-mongo
+    spec:
+      containers:
+        - name: profile-mongo
+          image: mongo:5.0.8
+          {{- if not (eq .Values.env "development") }}
+          volumeMounts:
+            - mountPath: /data/db
+              name: mongo-storage
+          {{- end }}
+          envFrom:
+            - secretRef:
+                name: mpg-mongo-secret
+      {{- if not (eq .Values.env "development") }}
+      volumes:
+        - name: mongo-storage
+          persistentVolumeClaim:
+            claimName: mpg-mongo-pvc
+      {{- end }}

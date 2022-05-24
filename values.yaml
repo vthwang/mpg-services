@@ -82,4 +82,4 @@ tolerations: []
 
 affinity: {}
 
-env: "development"
+env: "production"

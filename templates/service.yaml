@@ -2,11 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mpg-mongo
+  namespace: mpg-services
 spec:
-  type: {{ .Values.service.type }}
+  clusterIP: None
   ports:
-    - port: {{ .Values.service.port }}
+    - name: mpg-mongo-port
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
-      nodePort: {{ .Values.service.nodePort}}
   selector:
     app: mpg-mongo

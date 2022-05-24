@@ -1,0 +1,14 @@
+{{/*For test purpose*/}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mpg-mongo-config
+data:
+  mongod.conf: |
+    security:
+      authorization: enabled
+    net:
+      ssl:
+        mode: requireSSL
+        PEMKeyFile: /etc/ssl/mongodb.pem
+        CAFile: /etc/ssl/root-ca.pem

@@ -15,7 +15,7 @@ spec:
         app: mpg-mongo
     spec:
       containers:
-        - name: profile-mongo
+        - name: mpg-mongo
           image: mongo:5.0.8
           {{- if not (eq .Values.env "development") }}
           volumeMounts:
